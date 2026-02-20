@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 const FavoritePage = () => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const storedFavorites = localStorage.getItem("favorites");
@@ -20,10 +21,18 @@ const FavoritePage = () => {
       setArtworks(fetchedArtworks);
     };
     fetchArtworks();
-  }, []);
+  }, [refresh]);
+
+  function handleFavoriteChange() {
+    setRefresh((prev) => !prev);
+  }
+
   return (
-    <div>
-      <Gallery artworks={artworks} />
+    <div className="container mx-auto mt-10">
+      <Gallery
+        artworks={artworks}
+        handleFavoriteChange={handleFavoriteChange}
+      />
     </div>
   );
 };

@@ -15,6 +15,10 @@ export const ArtworkItemSchema = z.looseObject({
   image_id: z.string().optional().nullable(),
 });
 
+export const ArtworkSingleSchema = z.object({
+  data: ArtworkItemSchema,
+});
+
 export const ArtworkSchema = z.object({
   pagination: z.looseObject({
     total: z.number(),
@@ -26,6 +30,7 @@ export const ArtworkSchema = z.object({
   data: z.array(ArtworkItemSchema),
 });
 
+export type ArtworkSingleResponse = z.infer<typeof ArtworkSingleSchema>;
 export type ArtworkResponse = z.infer<typeof ArtworkSchema>;
 export type Artwork = z.infer<typeof ArtworkItemSchema>;
 export type Pagination = z.infer<typeof ArtworkSchema.shape.pagination>;

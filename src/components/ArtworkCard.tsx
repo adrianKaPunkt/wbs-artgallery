@@ -8,9 +8,10 @@ import { cn } from "@/lib/utils";
 
 type ArtworkCardProps = {
   artwork: Artwork;
+  handleFavoriteChange?: () => void;
 };
 
-const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
+const ArtworkCard = ({ artwork, handleFavoriteChange }: ArtworkCardProps) => {
   const [isFavorite, setIsFavorite] = useState(
     JSON.parse(localStorage.getItem("favorites") || "[]")?.includes(artwork.id),
   );
@@ -30,6 +31,7 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
       }
     }
     localStorage.setItem("favorites", JSON.stringify(favorites));
+    handleFavoriteChange?.();
   }
 
   const imageUrl = artwork.image_id

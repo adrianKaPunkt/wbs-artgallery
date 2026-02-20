@@ -1,4 +1,4 @@
-import { ArtworkItemSchema, type Artwork } from "@/schema/artwork";
+import { ArtworkSingleSchema, type Artwork } from "@/schema/artwork";
 
 export async function getArtworkById(id: number): Promise<Artwork | null> {
   const fields =
@@ -11,7 +11,7 @@ export async function getArtworkById(id: number): Promise<Artwork | null> {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const result = await response.json();
-    const { data, success, error } = ArtworkItemSchema.safeParse(result);
+    const { data, success, error } = ArtworkSingleSchema.safeParse(result);
 
     if (!success) {
       console.log(error);
