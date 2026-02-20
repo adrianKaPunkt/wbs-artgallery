@@ -1,7 +1,6 @@
 import { Route, Routes } from "react-router";
 import "./App.css";
-import HomePage from "./pages/HomePage";
-import ArtworkDetailPage from "./pages/ArtworkDetailPage";
+import { HomePage, ArtworkDetailPage, FavoritePage } from "./pages";
 
 function App() {
   return (
@@ -14,6 +13,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/artwork/:id" element={<ArtworkDetailPage />} />
+            <Route path="/favorites" element={<FavoritePage />} />
           </Routes>
         </div>
       </main>

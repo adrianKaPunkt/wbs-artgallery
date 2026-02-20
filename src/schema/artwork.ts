@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-const ArtworkItemSchema = z.looseObject({
+export const ArtworkItemSchema = z.looseObject({
   id: z.number().optional().nullable(),
   title: z.string().optional().nullable(),
-  artist_title: z.string().nullable(),
+  artist_title: z.string().optional().nullable(),
   description: z.string().optional().nullable(),
   thumbnail: z
     .looseObject({

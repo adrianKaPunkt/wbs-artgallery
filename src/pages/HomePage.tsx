@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getArtwork } from "../hooks/getArtwork";
+import { getArtwork } from "../lib/getArtwork";
 import Gallery from "../components/Gallery";
 import type { Artwork, Pagination } from "../schema/artwork";
 

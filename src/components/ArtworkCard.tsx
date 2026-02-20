@@ -4,7 +4,6 @@ import { Button } from "./ui/button";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { is } from "zod/locales";
 // import parse from "html-react-parser";
 
 type ArtworkCardProps = {
@@ -42,8 +41,8 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
       <div className="relative h-64 w-full overflow-hidden shrink-0">
         <FaStar
           className={cn(
-            "absolute top-3 right-3 text-white text-xl opacity-75",
-            isFavorite ? "fill-yellow-400" : "fill-gray-400",
+            "absolute top-3 right-3 text-white text-2xl hover:scale-125 transition-transform cursor-pointer",
+            isFavorite ? "fill-yellow-400" : "fill-gray-200",
           )}
           onClick={toggleFavorites}
         />
