@@ -17,7 +17,6 @@ export async function getArtworkById(id: number): Promise<Artwork | null> {
       console.log(error);
       throw new Error("Data validation failed");
     }
-    console.log("Fetched artwork data:", data);
     return data.data || null;
   } catch (error) {
     if (error instanceof Error) {

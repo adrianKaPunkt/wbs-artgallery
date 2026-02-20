@@ -1,38 +1,30 @@
 import Gallery from "@/components/Gallery";
+import { useStorage } from "@/hooks/useStorage";
 import { getArtworkById } from "@/lib/getArtworkById";
 import type { Artwork } from "@/schema/artwork";
 import { useEffect, useState } from "react";
 
 const FavoritePage = () => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
-  const [refresh, setRefresh] = useState(false);
+  const { getJSON } = useStorage();
 
   useEffect(() => {
-    const storedFavorites = localStorage.getItem("favorites");
-    const parsedFavorites = JSON.parse(storedFavorites || "[]");
-    const fetchArtworks = async () => {
-      const fetchedArtworks: Artwork[] = [];
-      for (const id of parsedFavorites) {
-        const artwork = await getArtworkById(id);
-        if (artwork) {
-          fetchedArtworks.push(artwork);
-        }
-      }
-      setArtworks(fetchedArtworks);
-    };
-    fetchArtworks();
-  }, [refresh]);
+    const favorites = getJSON<number[]>("favorites", []);
 
-  function handleFavoriteChange() {
-    setRefresh((prev) => !prev);
-  }
+    const fetchArtworks = async () => {
+      const fetched = await Promise.all(
+        favorites.map((id) => getArtworkById(id)),
+      );
+
+      setArtworks(fetched.filter(Boolean) as Artwork[]);
+    };
+
+    fetchArtworks();
+  }, [getJSON]);
 
   return (
     <div className="container mx-auto mt-10">
-      <Gallery
-        artworks={artworks}
-        handleFavoriteChange={handleFavoriteChange}
-      />
+      <Gallery artworks={artworks} />
     </div>
   );
 };

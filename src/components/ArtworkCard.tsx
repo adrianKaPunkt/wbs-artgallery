@@ -2,36 +2,26 @@ import { Link } from "react-router";
 import type { Artwork } from "../schema/artwork";
 import { Button } from "./ui/button";
 import { FaStar } from "react-icons/fa";
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-// import parse from "html-react-parser";
+import { useStorage } from "@/hooks/useStorage";
 
 type ArtworkCardProps = {
   artwork: Artwork;
-  handleFavoriteChange?: () => void;
 };
 
-const ArtworkCard = ({ artwork, handleFavoriteChange }: ArtworkCardProps) => {
-  const [isFavorite, setIsFavorite] = useState(
-    JSON.parse(localStorage.getItem("favorites") || "[]")?.includes(artwork.id),
-  );
-  if (!artwork) return null;
+const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
+  const { getJSON, setJSON } = useStorage();
+  const favorites = getJSON<number[]>("favorites", []);
+  const isFavorite =
+    artwork.id !== null &&
+    artwork.id !== undefined &&
+    favorites.includes(artwork.id);
 
   function toggleFavorites() {
-    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
-
-    if (!favorites.includes(artwork.id)) {
-      favorites.push(artwork.id);
-      setIsFavorite(true);
-    } else {
-      const index = favorites.indexOf(artwork.id);
-      if (index > -1) {
-        favorites.splice(index, 1);
-        setIsFavorite(false);
-      }
-    }
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-    handleFavoriteChange?.();
+    const next = isFavorite
+      ? favorites.filter((id) => id !== artwork.id)
+      : [...favorites, artwork.id];
+    setJSON("favorites", next);
   }
 
   const imageUrl = artwork.image_id
@@ -57,7 +47,6 @@ const ArtworkCard = ({ artwork, handleFavoriteChange }: ArtworkCardProps) => {
         ) : null}
       </div>
 
-      {/* content area */}
       <div className="p-6 text-center flex flex-col flex-1 min-h-0">
         <div className="flex-1 min-h-0">
           <h2 className="text-xl font-bold line-clamp-1">{artwork?.title}</h2>

@@ -1,7 +1,9 @@
+import { useStorage } from "@/hooks/useStorage";
 import { FaHome, FaStar } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
 
 const HomeLayout = () => {
+  const { getJSON } = useStorage();
   return (
     <>
       <header>
@@ -13,8 +15,7 @@ const HomeLayout = () => {
             <Link to="/favorites" className="ml-4">
               <div className="relative">
                 <span className="absolute -top-2 -right-5 bg-cyan-500 text-white rounded-full px-3">
-                  {JSON.parse(localStorage.getItem("favorites") || "[]")
-                    ?.length || 0}
+                  {getJSON<number[]>("favorites", [])?.length || 0}
                 </span>
                 <FaStar size={50} className="fill-yellow-400" />
               </div>
