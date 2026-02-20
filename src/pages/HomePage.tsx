@@ -16,6 +16,8 @@ const HomePage = () => {
     fetchData();
   }, [search, page]);
   return (
+
+    
     <div className="container mx-auto mt-10">
       <input
         type="text"
