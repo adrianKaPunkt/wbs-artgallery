@@ -1,6 +1,10 @@
 import { Link } from "react-router";
 import type { Artwork } from "../schema/artwork";
 import { Button } from "./ui/button";
+import { FaStar } from "react-icons/fa";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { is } from "zod/locales";
 // import parse from "html-react-parser";
 
 type ArtworkCardProps = {
@@ -8,7 +12,26 @@ type ArtworkCardProps = {
 };
 
 const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
+  const [isFavorite, setIsFavorite] = useState(
+    JSON.parse(localStorage.getItem("favorites") || "[]")?.includes(artwork.id),
+  );
   if (!artwork) return null;
+
+  function toggleFavorites() {
+    const favorites = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+    if (!favorites.includes(artwork.id)) {
+      favorites.push(artwork.id);
+      setIsFavorite(true);
+    } else {
+      const index = favorites.indexOf(artwork.id);
+      if (index > -1) {
+        favorites.splice(index, 1);
+        setIsFavorite(false);
+      }
+    }
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }
 
   const imageUrl = artwork.image_id
     ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`
@@ -16,7 +39,14 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
 
   return (
     <div className="rounded-xl overflow-hidden shadow-lg h-full cursor-pointer border bg-white border-gray-100 flex flex-col">
-      <div className="h-64 w-full overflow-hidden shrink-0">
+      <div className="relative h-64 w-full overflow-hidden shrink-0">
+        <FaStar
+          className={cn(
+            "absolute top-3 right-3 text-white text-xl opacity-75",
+            isFavorite ? "fill-yellow-400" : "fill-gray-400",
+          )}
+          onClick={toggleFavorites}
+        />
         {imageUrl ? (
           <img
             src={imageUrl}

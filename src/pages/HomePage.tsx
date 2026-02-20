@@ -9,7 +9,7 @@ const HomePage = () => {
   const [searchInputValue, setSearchInputValue] = useState("");
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState<Pagination | null>(null);
-  const [limit, setLimit] = useState(100);
+  const [limit, setLimit] = useState(50);
 
   useEffect(() => {
     const timeout = setTimeout(() => setSearch(searchInputValue), 350);
