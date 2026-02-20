@@ -8,10 +8,16 @@ const HomeLayout = () => {
         <nav>
           <div className="flex justify-center items-center p-4">
             <Link to="/">
-              <FaHome size={24} />
+              <FaHome size={50} />
             </Link>
             <Link to="/favorites" className="ml-4">
-              <FaStar size={24} />
+              <div className="relative">
+                <span className="absolute -top-2 -right-5 bg-cyan-500 text-white rounded-full px-3">
+                  {JSON.parse(localStorage.getItem("favorites") || "[]")
+                    ?.length || 0}
+                </span>
+                <FaStar size={50} className="fill-yellow-400" />
+              </div>
             </Link>
           </div>
         </nav>
