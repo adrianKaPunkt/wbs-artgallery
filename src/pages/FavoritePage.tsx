@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 const FavoritePage = () => {
   const [artworks, setArtworks] = useState<Artwork[]>([]);
+  const [searchInputValue, setSearchInputValue] = useState("");
   const { getJSON } = useStorage();
 
   useEffect(() => {
@@ -23,8 +24,19 @@ const FavoritePage = () => {
   }, [getJSON]);
 
   return (
-    <div className="container mx-auto pt-32">
-      <Gallery artworks={artworks} />
+    <div className="container mx-auto pt-24">
+      <input
+        type="text"
+        className="w-full p-2 border rounded-lg mb-5"
+        placeholder="Search favorites..."
+        value={searchInputValue}
+        onChange={(e) => setSearchInputValue(e.target.value)}
+      />
+      <Gallery
+        artworks={artworks.filter((artwork) =>
+          (artwork?.title ?? "").toLowerCase().includes(searchInputValue.toLowerCase()),
+        )}
+      />
     </div>
   );
 };

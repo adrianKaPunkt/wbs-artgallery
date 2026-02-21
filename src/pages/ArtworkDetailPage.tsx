@@ -65,7 +65,7 @@ const ArtworkDetailPage = () => {
       {artist?.description && (
         <div className="bg-black/90 text-gray-200 p-10 rounded-3xl">
           <div>
-            <h2 className="text-2xl font-bold mt-10 mb-2">
+            <h2 className="text-2xl font-bold mt-2 mb-2">
               {artwork?.artist_title}
             </h2>
             <p className="leading-relaxed">

@@ -1,6 +1,7 @@
 import { useStorage } from "@/hooks/useStorage";
 import { FaHome, FaStar } from "react-icons/fa";
 import { Link, Outlet } from "react-router";
+import { Toaster } from "sonner";
 
 const HomeLayout = () => {
   const { getJSON } = useStorage();
@@ -25,8 +26,9 @@ const HomeLayout = () => {
       </header>
       <main>
         <Outlet />
+        <Toaster />
       </main>
-      <footer className="mt-20 bg-black">
+      <footer className="mt-20 bg-black h-[500px]">
         <p className="text-center py-5 text-gray-500">
           © {new Date().getFullYear()} Art Gallery - Martin K. & Adrian K.
         </p>

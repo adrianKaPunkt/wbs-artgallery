@@ -1,14 +1,11 @@
 import { useState } from "react";
+import { toast } from "sonner";
 import { BsPencilFill } from "react-icons/bs";
 import { Button } from "./ui/button";
+import { NoteSchema, type Note } from "../schema/note";
 
 type NotesProps = {
   id: number | string;
-};
-
-type Note = {
-  id: string;
-  note: string;
 };
 
 const Notes = ({ id }: NotesProps) => {
@@ -30,10 +27,16 @@ const Notes = ({ id }: NotesProps) => {
     const raw = localStorage.getItem("notes");
     const parsed = raw ? JSON.parse(raw) : [];
     const notes: Note[] = Array.isArray(parsed) ? parsed : [];
+    const { data, success } = NoteSchema.safeParse({ id: idStr, note });
+    if (!success) {
+      console.error("Failed to validate note data:", data);
+      return;
+    }
     const index = notes.findIndex((n) => n.id === idStr);
-    if (index === -1) notes.push({ id: idStr, note });
-    else notes[index].note = note;
+    if (index === -1) notes.push(data);
+    else notes[index] = data;
     localStorage.setItem("notes", JSON.stringify(notes));
+    toast.success("Note saved successfully!");
   }
 
   function deleteNote() {
@@ -45,6 +48,7 @@ const Notes = ({ id }: NotesProps) => {
       JSON.stringify(notes.filter((n) => n.id !== idStr)),
     );
     setNote("");
+    toast.success("Note deleted successfully!");
   }
 
   return (
