@@ -2,12 +2,15 @@ import { Link } from "react-router";
 import type { Artwork } from "../schema/artwork";
 import { Button } from "./ui/button";
 import Star from "./Star";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 type ArtworkCardProps = {
   artwork: Artwork;
 };
 
 const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
+  const [readMore, setReadMore] = useState(false);
   const imageUrl = artwork.image_id
     ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`
     : "https://wahooart.com/media/artworks/images/full/ae/b9/aeb9e0548b9a4ed0be9828286be2c9f9.JPG";
@@ -34,7 +37,13 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
             {artwork?.artist_title ? artwork?.artist_title : "Unknown Artist"}
           </p>
           <p>({artwork?.date_start ? artwork?.date_start : "Unknown Date"})</p>
-          <p className="line-clamp-2 mt-7 mb-6 text-gray-600">
+          <p
+            className={cn(
+              "line-clamp-2 mt-7 mb-6 text-gray-600",
+              readMore ? "line-clamp-none" : "",
+            )}
+            onClick={() => setReadMore(!readMore)}
+          >
             {artwork.thumbnail?.alt_text}
           </p>
         </div>

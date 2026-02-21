@@ -27,7 +27,7 @@ const Star = ({ id, size = 30, className }: StarProps) => {
       setAnimateStar(true);
       setTimeout(() => {
         setAnimateStar(false);
-      }, 1800);
+      }, 2200);
     }
   }
 
@@ -48,7 +48,7 @@ const Star = ({ id, size = 30, className }: StarProps) => {
           : { scale: 1, filter: "drop-shadow(0 0 0px rgba(0,0,0,0))" }
       }
       transition={{
-        duration: 1.8,
+        duration: 2.2,
         ease: "easeInOut",
         repeat: 5,
       }}
