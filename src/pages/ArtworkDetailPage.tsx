@@ -1,18 +1,25 @@
-import { getArtworkById } from "@/lib/getArtworkById";
-import type { Artwork } from "@/schema/artwork";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import parse from "html-react-parser";
-import { FaStar } from "react-icons/fa";
-import { getArtist } from "@/lib/getArtist";
 import Notes from "@/components/Notes";
-import { cn } from "@/lib/utils";
 import Star from "@/components/Star";
+import { getArtworkById } from "@/lib/getArtworkById";
+import { getArtist } from "@/lib/getArtist";
+import type { Artwork } from "@/schema/artwork";
+
+type Artist = {
+  name: string;
+  description: string;
+  thumbnail: {
+    source: string;
+  };
+  extract_html: string;
+};
 
 const ArtworkDetailPage = () => {
   const { id } = useParams();
   const [artwork, setArtwork] = useState<Artwork | null>(null);
-  const [artist, setArtist] = useState({});
+  const [artist, setArtist] = useState<Artist | null>(null);
 
   useEffect(() => {
     async function fetchArtwork() {

@@ -3,7 +3,6 @@ import type { Artwork } from "../schema/artwork";
 import { Button } from "./ui/button";
 import Star from "./Star";
 
-
 type ArtworkCardProps = {
   artwork: Artwork;
 };
