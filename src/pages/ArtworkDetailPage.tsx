@@ -46,14 +46,15 @@ const ArtworkDetailPage = () => {
           <h1 className="text-2xl font-bold">{artwork?.title}</h1>
           <p className="text-xs mt-2">by</p>
           <p className="text-xl">
-            {artwork?.artist_title ? artwork?.artist_title : "Unknown Artist"} - {artwork?.date_start}
+            {artwork?.artist_title ? artwork?.artist_title : "Unknown Artist"} -{" "}
+            {artwork?.date_start}
           </p>
         </div>
         <div className="mr-7">
           <Star id={artwork?.id ? artwork.id : undefined} size={50} />
         </div>
       </div>
-      <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
           <img src={imageUrl} alt={artwork?.title || "Artwork"} />
         </div>
@@ -62,30 +63,34 @@ const ArtworkDetailPage = () => {
         </div>
       </div>
       {artist?.description && (
-      <div className="mt-20">
-        <h2 className="text-2xl font-bold mt-10 mb-2">
-          {artwork?.artist_title}
-        </h2>
-        <p className="leading-relaxed">
-          {parse(artist?.description || "No information available.")}
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-10">
-          <img
-            className="w-full aspect-square object-cover rounded-full"
-            src={artistImageUrl}
-            alt={artist?.name || "Artist"}
-          />
-          <div className="flex col-span-2 text-lg leading-loose h-full items-center">
-            {artist?.extract_html
-              ? parse(artist.extract_html)
-              : "No extract available."}
+        <div className="bg-black/90 text-gray-200 p-10 rounded-3xl">
+          <div>
+            <h2 className="text-2xl font-bold mt-10 mb-2">
+              {artwork?.artist_title}
+            </h2>
+            <p className="leading-relaxed">
+              {parse(artist?.description || "No information available.")}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-10">
+            <img
+              className="w-full aspect-square object-cover rounded-full"
+              src={artistImageUrl}
+              alt={artist?.name || "Artist"}
+            />
+            <div className="flex col-span-2 text-lg leading-loose h-full items-center">
+              {artist?.extract_html
+                ? parse(artist.extract_html)
+                : "No extract available."}
+            </div>
           </div>
         </div>
-      </div>
       )}
-      <div className="mt-20">
-        <Notes id={Number(artwork?.id)} />
-      </div>
+      {artwork?.id && (
+        <div className="mt-20">
+          <Notes id={artwork?.id ?? ""} />
+        </div>
+      )}
     </div>
   );
 };
