@@ -49,7 +49,7 @@ const ArtworkDetailPage = () => {
             {artwork?.artist_title} - {artwork?.date_start}
           </p>
         </div>
-        <div>
+        <div className="mr-7">
           <Star id={artwork?.id ? artwork.id : undefined} size={50} />
         </div>
       </div>
