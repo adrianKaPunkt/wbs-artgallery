@@ -46,7 +46,7 @@ const ArtworkDetailPage = () => {
           <h1 className="text-2xl font-bold">{artwork?.title}</h1>
           <p className="text-xs mt-2">by</p>
           <p className="text-xl">
-            {artwork?.artist_title} - {artwork?.date_start}
+            {artwork?.artist_title ? artwork?.artist_title : "Unknown Artist"} - {artwork?.date_start}
           </p>
         </div>
         <div className="mr-7">
@@ -61,6 +61,7 @@ const ArtworkDetailPage = () => {
           {parse(artwork?.description || "")}
         </div>
       </div>
+      {artist?.description && (
       <div className="mt-20">
         <h2 className="text-2xl font-bold mt-10 mb-2">
           {artwork?.artist_title}
@@ -81,6 +82,7 @@ const ArtworkDetailPage = () => {
           </div>
         </div>
       </div>
+      )}
       <div className="mt-20">
         <Notes id={Number(artwork?.id)} />
       </div>

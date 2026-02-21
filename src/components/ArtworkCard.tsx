@@ -12,11 +12,11 @@ type ArtworkCardProps = {
 const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
   const [readMore, setReadMore] = useState(false);
   const imageUrl = artwork.image_id
-    ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`
+    ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/843,/0/default.jpg`
     : "https://wahooart.com/media/artworks/images/full/ae/b9/aeb9e0548b9a4ed0be9828286be2c9f9.JPG";
 
   return (
-    <div className="rounded-xl overflow-hidden shadow-xl h-full cursor-pointer border bg-white border-gray-100 flex flex-col">
+    <div className="rounded-xl overflow-hidden shadow-xl h-full cursor-pointer bg-white flex flex-col hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-black">
       <div className="relative h-64 w-full overflow-hidden shrink-0">
         <div className="absolute top-3 right-3">
           <Star id={artwork?.id ? artwork.id : undefined} size={30} />

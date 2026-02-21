@@ -23,7 +23,6 @@ const Notes = ({ id }: NotesProps) => {
         <Button
           onClick={() => {
             localStorage.setItem(`notes_${id}`, note);
-            alert("Note saved!");
           }}
           variant="default"
         >

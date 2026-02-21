@@ -32,7 +32,7 @@ const HomePage = () => {
         <img
           src="https://www.whudat.de/images/2024/01/Great-Art-Explained-Salvador-Dali-BB.jpg"
           alt="hero-imgage"
-          className="w-full"
+          className="w-full max-h-[50vh] object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
           <div className="relative w-1/2">
