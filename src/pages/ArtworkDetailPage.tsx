@@ -3,8 +3,11 @@ import type { Artwork } from "@/schema/artwork";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import parse from "html-react-parser";
+import { FaStar } from "react-icons/fa";
 import { getArtist } from "@/lib/getArtist";
 import Notes from "@/components/Notes";
+import { cn } from "@/lib/utils";
+import Star from "@/components/Star";
 
 const ArtworkDetailPage = () => {
   const { id } = useParams();
@@ -16,7 +19,6 @@ const ArtworkDetailPage = () => {
       const fetchedArtwork = await getArtworkById(Number(id));
       setArtwork(fetchedArtwork);
       const fetchedArtist = await getArtist(fetchedArtwork?.artist_title || "");
-      console.log(fetchedArtist);
       setArtist(fetchedArtist);
     }
     fetchArtwork();
@@ -32,16 +34,23 @@ const ArtworkDetailPage = () => {
 
   return (
     <div className="container mx-auto pt-32 px-5 md:px-0">
-      <h1 className="text-2xl font-bold">{artwork?.title}</h1>
-      <p className="text-xs mt-2">by</p>
-      <p className="text-xl">
-        {artwork?.artist_title} - {artwork?.date_start}
-      </p>
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{artwork?.title}</h1>
+          <p className="text-xs mt-2">by</p>
+          <p className="text-xl">
+            {artwork?.artist_title} - {artwork?.date_start}
+          </p>
+        </div>
+        <div>
+          <Star id={artwork?.id ? artwork.id : undefined} size={50} />
+        </div>
+      </div>
       <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-10">
         <div>
           <img src={imageUrl} alt={artwork?.title || "Artwork"} />
         </div>
-        <div className="leading-relaxed">
+        <div className="leading-loose text-lg">
           {parse(artwork?.description || "")}
         </div>
       </div>
@@ -58,7 +67,7 @@ const ArtworkDetailPage = () => {
             src={artistImageUrl}
             alt={artist?.name || "Artist"}
           />
-          <div className="flex col-span-2 leading-relaxed h-full items-center">
+          <div className="flex col-span-2 text-lg leading-loose h-full items-center">
             {artist?.extract_html
               ? parse(artist.extract_html)
               : "No extract available."}

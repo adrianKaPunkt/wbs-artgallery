@@ -1,29 +1,14 @@
 import { Link } from "react-router";
 import type { Artwork } from "../schema/artwork";
 import { Button } from "./ui/button";
-import { FaStar } from "react-icons/fa";
-import { cn } from "@/lib/utils";
-import { useStorage } from "@/hooks/useStorage";
+import Star from "./Star";
+
 
 type ArtworkCardProps = {
   artwork: Artwork;
 };
 
 const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
-  const { getJSON, setJSON } = useStorage();
-  const favorites = getJSON<number[]>("favorites", []);
-  const isFavorite =
-    artwork.id !== null &&
-    artwork.id !== undefined &&
-    favorites.includes(artwork.id);
-
-  function toggleFavorites() {
-    const next = isFavorite
-      ? favorites.filter((id) => id !== artwork.id)
-      : [...favorites, artwork.id];
-    setJSON("favorites", next);
-  }
-
   const imageUrl = artwork.image_id
     ? `https://www.artic.edu/iiif/2/${artwork.image_id}/full/200,/0/default.jpg`
     : "https://wahooart.com/media/artworks/images/full/ae/b9/aeb9e0548b9a4ed0be9828286be2c9f9.JPG";
@@ -31,13 +16,9 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
   return (
     <div className="rounded-xl overflow-hidden shadow-xl h-full cursor-pointer border bg-white border-gray-100 flex flex-col">
       <div className="relative h-64 w-full overflow-hidden shrink-0">
-        <FaStar
-          className={cn(
-            "absolute top-3 right-3 text-white text-2xl hover:scale-125 transition-transform cursor-pointer",
-            isFavorite ? "fill-yellow-400" : "fill-gray-200",
-          )}
-          onClick={toggleFavorites}
-        />
+        <div className="absolute top-3 right-3">
+          <Star id={artwork?.id ? artwork.id : undefined} size={30} />
+        </div>
         {imageUrl ? (
           <img
             src={imageUrl}
