@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import parse from "html-react-parser";
 import { getArtist } from "@/lib/getArtist";
+import Notes from "@/components/Notes";
 
 const ArtworkDetailPage = () => {
   const { id } = useParams();
@@ -30,7 +31,7 @@ const ArtworkDetailPage = () => {
     : "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/480px-No_image_available.svg.png";
 
   return (
-    <div className="container mx-auto mt-10 p-5 md:p-0">
+    <div className="container mx-auto pt-32 px-5 md:px-0">
       <h1 className="text-2xl font-bold">{artwork?.title}</h1>
       <p className="text-xs mt-2">by</p>
       <p className="text-xl">
@@ -63,6 +64,9 @@ const ArtworkDetailPage = () => {
               : "No extract available."}
           </div>
         </div>
+      </div>
+      <div className="mt-20">
+        <Notes id={Number(artwork?.id)} />
       </div>
     </div>
   );

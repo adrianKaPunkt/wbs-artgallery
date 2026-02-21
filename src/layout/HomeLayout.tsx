@@ -6,18 +6,18 @@ const HomeLayout = () => {
   const { getJSON } = useStorage();
   return (
     <>
-      <header>
-        <nav>
-          <div className="flex justify-center items-center p-4">
+      <header className="flex justify-center">
+        <nav className="fixed z-10 bg-white/25 shadow w-full backdrop-blur-md">
+          <div className="flex justify-center items-center px-10 py-6">
             <Link to="/">
-              <FaHome size={50} />
+              <FaHome size={30} />
             </Link>
             <Link to="/favorites" className="ml-4">
               <div className="relative">
-                <span className="absolute -top-2 -right-5 bg-cyan-500 text-white rounded-full px-3">
+                <span className="absolute -top-2 -right-3 text-xs font-bold bg-cyan-500 text-white rounded-full px-1">
                   {getJSON<number[]>("favorites", [])?.length || 0}
                 </span>
-                <FaStar size={50} className="fill-yellow-400" />
+                <FaStar size={30} className="fill-black" />
               </div>
             </Link>
           </div>
@@ -26,6 +26,11 @@ const HomeLayout = () => {
       <main>
         <Outlet />
       </main>
+      <footer className="mt-20 bg-black">
+        <p className="text-center py-5 text-gray-500">
+          © {new Date().getFullYear()} Art Gallery - Martin K. & Adrian K.
+        </p>
+      </footer>
     </>
   );
 };

@@ -29,7 +29,7 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
     : "https://wahooart.com/media/artworks/images/full/ae/b9/aeb9e0548b9a4ed0be9828286be2c9f9.JPG";
 
   return (
-    <div className="rounded-xl overflow-hidden shadow-lg h-full cursor-pointer border bg-white border-gray-100 flex flex-col">
+    <div className="rounded-xl overflow-hidden shadow-xl h-full cursor-pointer border bg-white border-gray-100 flex flex-col">
       <div className="relative h-64 w-full overflow-hidden shrink-0">
         <FaStar
           className={cn(

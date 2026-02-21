@@ -23,7 +23,7 @@ const FavoritePage = () => {
   }, [getJSON]);
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto pt-32">
       <Gallery artworks={artworks} />
     </div>
   );
