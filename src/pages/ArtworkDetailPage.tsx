@@ -1,8 +1,9 @@
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { useEffect, useState } from "react";
 import parse from "html-react-parser";
 import Notes from "@/components/Notes";
 import Star from "@/components/Star";
+import { FaSearch } from "react-icons/fa";
 import PictureModal from "@/components/PictureModal";
 import { getArtworkById } from "@/lib/getArtworkById";
 import { getArtist } from "@/lib/getArtist";
@@ -72,13 +73,21 @@ const ArtworkDetailPage = () => {
         </div>
         {artist?.description && (
           <div className="bg-black/90 text-gray-200 p-10 rounded-3xl">
-            <div>
-              <h2 className="text-2xl font-bold mt-2 mb-2">
-                {artwork?.artist_title}
-              </h2>
-              <p className="leading-relaxed">
-                {parse(artist?.description || "No information available.")}
-              </p>
+            <div className="flex items-start justify-between">
+              <div>
+                <h2 className="text-2xl font-bold mt-2 mb-2">
+                  {artwork?.artist_title}
+                </h2>
+                <p className="leading-relaxed">
+                  {parse(artist?.description || "No information available.")}
+                </p>
+              </div>
+              <Link
+                to={`/?${new URLSearchParams({ search: artwork?.artist_title || "" })}`}
+                className="text-gray-400"
+              >
+                <FaSearch className="text-gray-500" />
+              </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-16 mt-10">
               <img

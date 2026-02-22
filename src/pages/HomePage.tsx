@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import { getArtwork } from "../lib/getArtwork";
 import { FaSearch } from "react-icons/fa";
 import Gallery from "../components/Gallery";
@@ -8,8 +9,11 @@ import PaginationComponent from "@/components/PaginationComponent";
 
 const HomePage = () => {
   const [artworks, setArtworks] = useState<Artwork[] | null>(null);
+  const [searchParams] = useSearchParams();
   const [search, setSearch] = useState("");
-  const [searchInputValue, setSearchInputValue] = useState("");
+  const [searchInputValue, setSearchInputValue] = useState(() => {
+    return searchParams.get("search") ?? "";
+  });
   const [page, setPage] = useState(1);
   const [pagination, setPagination] = useState<Pagination | null>(null);
   const [limit, setLimit] = useState(50);

@@ -34,23 +34,13 @@ const Star = ({ id, size = 30, className }: StarProps) => {
   return (
     <motion.div
       animate={
-        animateStar
-          ? {
-              scale: [1, 1.5, 0.95, 1.2, 0.7, 1],
-              filter: [
-                "drop-shadow(0 0 0px rgba(255, 215, 0, 0))",
-                "drop-shadow(0 0 12px rgba(255, 215, 0, 0.9))",
-                "drop-shadow(0 0 6px rgba(255, 215, 0, 0.6))",
-                "drop-shadow(0 0 10px rgba(255, 215, 0, 0.8))",
-                "drop-shadow(0 0 0px rgba(255, 215, 0, 0))",
-              ],
-            }
-          : { scale: 1, filter: "drop-shadow(0 0 0px rgba(0,0,0,0))" }
+        animateStar ? { scale: [1, 1.5, 0.95, 1.2, 0.7, 1] } : { scale: 1 }
       }
-      transition={{
-        duration: 2.2,
-        ease: "easeInOut",
-        repeat: 5,
+      transition={{ duration: 2.2, ease: "easeInOut", repeat: 5 }}
+      style={{
+        filter: animateStar
+          ? "drop-shadow(0 0 12px rgba(255, 215, 0, 0.9))"
+          : "drop-shadow(0 0 0px rgba(0,0,0,0))",
       }}
     >
       <FaStar
