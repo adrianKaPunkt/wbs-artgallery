@@ -18,7 +18,7 @@ const ArtworkCard = ({ artwork }: ArtworkCardProps) => {
   return (
     <div className="rounded-xl overflow-hidden shadow-xl h-full cursor-pointer bg-white flex flex-col hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-black">
       <div className="relative h-64 w-full overflow-hidden shrink-0">
-        <div className="absolute top-3 right-3">
+        <div className="absolute flex gap-3 top-3 right-3">
           <Star id={artwork?.id ? artwork.id : undefined} size={30} />
         </div>
         {imageUrl ? (

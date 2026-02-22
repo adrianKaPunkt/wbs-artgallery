@@ -10,11 +10,8 @@ type NotesProps = {
 
 const Notes = ({ id }: NotesProps) => {
   const idStr = String(id);
-  console.log(idStr);
   const [note, setNote] = useState(() => {
     const raw = localStorage.getItem("notes");
-    console.log("idStr:", idStr);
-    console.log("raw notes:", raw);
     if (!raw) return "";
     const parsed = JSON.parse(raw) as Note[];
     const notes: Note[] = Array.isArray(parsed) ? parsed : [];
@@ -58,7 +55,7 @@ const Notes = ({ id }: NotesProps) => {
         <span className="ml-2">Notes:</span>
       </h2>
       <textarea
-        className="mt-10 w-full h-40 p-5 border rounded-2xl text-lg leading-loose bg-transparent"
+        className="mt-10 w-full h-40 p-5 border border-gray-400 rounded-2xl text-lg leading-loose bg-transparent"
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder="Write your notes here..."
